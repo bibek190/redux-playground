@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { combineReducers, createStore } from "redux";
 import redux from "redux";
 import { bindActionCreators } from "redux";
+import logger, { reduxlogger, createLogger } from "redux-logger";
+import { applyMiddleware } from "redux";
 
 // action creator
 // cake
@@ -47,7 +49,7 @@ const initialCakeState = {
   numOfCakes: 10,
 };
 const initialIceCreamState = {
-  numOfCakes: 20,
+  numOfIceCreams: 20,
 };
 
 const cakeReducer = (state = initialCakeState, action) => {
@@ -91,24 +93,27 @@ const rootReducer = combineReducers({
   iceCream: iceCreamReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
-store.subscribe(() => console.log("Update state", store.getState()));
+store.subscribe(() => {});
 
 const actions = bindActionCreators(
   { orderCake, reStockedCake, orderIcecream, restockIceCream },
   store.dispatch
 );
 actions.orderCake();
-actions.orderCake();
-actions.orderCake();
+
 actions.reStockedCake(5);
 actions.orderIcecream();
 actions.orderIcecream();
 actions.restockIceCream();
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <h1>Hello Bibek Tech</h1>
+    </div>
+  );
 }
 
 export default App;
