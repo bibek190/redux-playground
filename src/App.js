@@ -1,118 +1,23 @@
-import { useDispatch } from "react-redux";
-import { combineReducers, createStore } from "redux";
-import redux from "redux";
-import { bindActionCreators } from "redux";
-import logger, { reduxlogger, createLogger } from "redux-logger";
-import { applyMiddleware } from "redux";
-
-// action creator
-// cake
-const CAKE_ORDERED = "CAKE_ORDERED";
-const CAKE_RESTOCKED = "CAKE_RESTOCKED";
-// icecream
-const ICECREAM_ORDERED = "ICECREAM_ORDERED";
-const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
-
-function orderCake() {
-  return {
-    type: CAKE_ORDERED,
-    payload: 1,
-  };
-}
-
-function reStockedCake(qty = 1) {
-  return {
-    type: CAKE_RESTOCKED,
-    payload: qty,
-  };
-}
-
-function orderIcecream(qty = 1) {
-  return {
-    type: ICECREAM_ORDERED,
-    payload: qty,
-  };
-}
-
-function restockIceCream(qty = 1) {
-  return {
-    type: ICECREAM_RESTOCKED,
-    payload: qty,
-  };
-}
-// reducer
-// const initialState = {
-//   numOfCakes: 10,
-//   numOfIceCreams: 20,
-// };
-const initialCakeState = {
-  numOfCakes: 10,
-};
-const initialIceCreamState = {
-  numOfIceCreams: 20,
-};
-
-const cakeReducer = (state = initialCakeState, action) => {
-  switch (action.type) {
-    case CAKE_ORDERED:
-      return {
-        ...state,
-        numOfCakes: state.numOfCakes - 1,
-      };
-    case CAKE_RESTOCKED:
-      return {
-        ...state,
-        numOfCakes: state.numOfCakes + action.payload,
-      };
-
-    default:
-      return state;
-  }
-};
-
-const iceCreamReducer = (state = initialIceCreamState, action) => {
-  switch (action.type) {
-    case ICECREAM_ORDERED:
-      return {
-        ...state,
-        numOfIceCreams: state.numOfIceCreams - 1,
-      };
-    case ICECREAM_RESTOCKED:
-      return {
-        ...state,
-        numOfIceCreams: state.numOfIceCreams + action.payload,
-      };
-    default:
-      return state;
-  }
-};
-// store
-
-const rootReducer = combineReducers({
-  cake: cakeReducer,
-  iceCream: iceCreamReducer,
-});
-
-const store = createStore(rootReducer, applyMiddleware(logger));
-
-store.subscribe(() => {});
-
-const actions = bindActionCreators(
-  { orderCake, reStockedCake, orderIcecream, restockIceCream },
-  store.dispatch
-);
-actions.orderCake();
-
-actions.reStockedCake(5);
-actions.orderIcecream();
-actions.orderIcecream();
-actions.restockIceCream();
+import React from "react";
+import { ordered, restocked } from "./features/cake/cakeSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const count = useSelector((state) => state.cake.numOfCake);
+  const counting = useSelector((state) => state.iceCream.value);
+  const dispatch = useDispatch();
+
   return (
-    <div className="App">
-      <h1>Hello Bibek Tech</h1>
-    </div>
+    <>
+      <div>
+        <h1>Cakes</h1>
+        <button onClick={() => dispatch(ordered())}>order</button>
+      </div>
+      <div>
+        <h1>Icecream</h1>
+        <button onClick={() => dispatch(ordered())}>order</button>
+      </div>
+    </>
   );
 }
 
