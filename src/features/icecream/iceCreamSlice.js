@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  numOfIceCream: 20,
+  numOfIcecream: 20,
 };
 
 const iceCreamSlice = createSlice({
-  name: "iceCream",
+  name: "icecream",
   initialState,
-  reducer: {
+  reducers: {
     ordered: (state) => {
-      state.numOfIceCream--;
+      state.numOfIcecream--;
     },
     restocked: (state, action) => {
-      state.numOfIceCream += action.payload;
+      state.numOfIcecream += action.payload;
     },
   },
 });

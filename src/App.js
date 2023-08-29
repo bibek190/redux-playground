@@ -1,22 +1,12 @@
 import React from "react";
-import { ordered, restocked } from "./features/cake/cakeSlice";
-import { useDispatch, useSelector } from "react-redux";
+import IceCreamView from "./features/icecream/IceCreamView";
+import CakeView from "./features/cake/CakeView";
 
 function App() {
-  const count = useSelector((state) => state.cake.numOfCake);
-  const counting = useSelector((state) => state.iceCream.value);
-  const dispatch = useDispatch();
-
   return (
     <>
-      <div>
-        <h1>Cakes</h1>
-        <button onClick={() => dispatch(ordered())}>order</button>
-      </div>
-      <div>
-        <h1>Icecream</h1>
-        <button onClick={() => dispatch(ordered())}>order</button>
-      </div>
+      <CakeView />
+      <IceCreamView />
     </>
   );
 }

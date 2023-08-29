@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
 
 const initialState = {
   numOfCake: 10,
