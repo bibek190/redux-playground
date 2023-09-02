@@ -9,7 +9,7 @@ function IceCreamView() {
     <div>
       <h1>{numofIcecream}</h1>
       <button onClick={() => dispatch(ordered())}>order iceCream</button>
-      <button onClick={() => dispatch(restocked(5))}>Restock icecream</button>
+      <button onClick={() => dispatch(restocked(10))}>Restock icecream</button>
     </div>
   );
 }
